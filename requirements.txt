@@ -2,3 +2,4 @@ openai
 openai-whisper 
 pyttsx3
 faiss-cpu 
+faster_whisper
