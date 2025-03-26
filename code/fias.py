@@ -17,13 +17,13 @@ assistant_responses = df[df["role"] == "assistant"]["content"].tolist()
 
 vectorizer = TfidfVectorizer()
 query_vectors = vectorizer.fit_transform(user_queries).toarray()
-
+pickle.dump(vectorizer, open("./code/vectorizer.pkl", "wb"))
 
 dimension = query_vectors.shape[1]
 index = faiss.IndexFlatL2(dimension)
 index.add(query_vectors)
 
-faiss.write_index(index, "./call_center_faiss.index")
+faiss.write_index(index, "./code/call_center_faiss.index")
 
 def find_best_response(user_query):
     query_vector = vectorizer.transform([user_query]).toarray()
@@ -36,8 +36,9 @@ def get_gpt_response(user_query, retrieved_response):
     prompt = f"""
     The customer said: {user_query}
     The best matching predefined response is: {retrieved_response}
-    
+    You are a helpful AI for a call center.
     If the predefined response fits, return it as is. If needed, improve it for better engagement.
+    Give me just response to the user query.
     """
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
