@@ -4,5 +4,4 @@ pyttsx3
 faiss-cpu 
 faster_whisper
 speechrecognition 
-TTS
 gTTS

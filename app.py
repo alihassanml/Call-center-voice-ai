@@ -1,18 +1,10 @@
-import openai
-import os
-from dotenv import load_dotenv
+import pyttsx3
 
+tts_engine = pyttsx3.init()
+voices = tts_engine.getProperty('voices')
 
-load_dotenv()
-api_key = os.getenv("OPEN_AI")
-
-
-openai.api_key = os.getenv("OPEN_AI")
-
-response = openai.ChatCompletion.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "system", "content": "You are a helpful AI for a call center."},
-              {"role": "user", "content": "Hello, how can you assist in a call center?"}]
-)
-
-print(response["choices"][0]["message"]["content"])
+# Change to a specific voice (e.g., index 1)
+tts_engine.setProperty('voice', voices[1].id)
+tts_engine.setProperty('rate',140)
+tts_engine.say("Hello, this is a different voice!")
+tts_engine.runAndWait()
