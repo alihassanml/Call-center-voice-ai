@@ -96,12 +96,12 @@ def interrupt_speech():
     while listening_active:
         if tts_engine._inLoop:
             print("Interrupting speech...")
-            tts_engine.stop()  # Stop speaking
-            time.sleep(0.1)  # Allow a brief time before processing the next input
+            tts_engine.stop()  
+            time.sleep(0.1)  
 
 def main():
     threading.Thread(target=listen, daemon=True).start()
-    threading.Thread(target=interrupt_speech, daemon=True).start()  # Run interrupt_speech to stop speaking during input
+    threading.Thread(target=interrupt_speech, daemon=True).start()  
     while True:
         time.sleep(0.01)
 
