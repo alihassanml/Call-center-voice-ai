@@ -76,7 +76,7 @@ def get_gpt_response(user_query, retrieved_response):
         messages=[{"role": "user", "content": prompt}]
     )
     response_text = response.choices[0].message.content
-    print(f"🤖 AI Response: {response_text}")
+    print(f" AI Response: {response_text}")
     
     play_audio(response_text)
 
@@ -86,29 +86,29 @@ def listen():
 
     while listening_active:
         with sr.Microphone() as source:
-            print("🎤 Listening...")
+            print("Listening...")
             recognizer.adjust_for_ambient_noise(source)
 
             try:
                 stop_speech_event.set()
                 audio = recognizer.listen(source, timeout=5)
-                print("📝 Processing speech...")
+                print("Processing speech...")
 
                 user_query = recognizer.recognize_google(audio)
                 stop_speech_event.clear()
 
                 if user_query:
-                    print(f"🗣 User: {user_query}")
+                    print(f"User: {user_query}")
                     retrieved_response = find_best_response(user_query)
                     get_gpt_response(user_query, retrieved_response)
             except sr.UnknownValueError:
-                print("⚠️ Could not understand audio")
+                print("Could not understand audio")
                 stop_speech_event.clear()
             except sr.RequestError:
-                print("⚠️ Could not reach speech recognition service")
+                print("Could not reach speech recognition service")
                 stop_speech_event.clear()
             except sr.WaitTimeoutError:
-                print("⏳ Listening timed out, retrying...")
+                print("Listening timed out, retrying...")
                 stop_speech_event.clear()
 
 def main():

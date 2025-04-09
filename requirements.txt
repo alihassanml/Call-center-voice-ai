@@ -5,3 +5,4 @@ faiss-cpu
 faster_whisper
 speechrecognition 
 gTTS
+dotenv
